@@ -1,0 +1,43 @@
+{
+  "name": "git-as-dropbox",
+  "version": "1.0.0",
+  "description": "Convert any git repository into a cheap Dropbox-like folder",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "bin": {
+    "git-as-dropbox": "./bin/git-as-dropbox.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adelriosantiago/git-as-dropbox.git"
+  },
+  "keywords": [
+    "dropbox",
+    "git push automatically",
+    "git pull automatically",
+    "git",
+    "realtime",
+    "real-time",
+    "gitrt-auto-commit",
+    "auto",
+    "autocommit",
+    "auto-commit",
+    "autopull",
+    "auto-pull"
+  ],
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "hidefile": "^3.0.0",
+    "meow": "^7.1.1",
+    "simple-git": "^2.20.1",
+    "split-lines": "^2.0.0"
+  },
+  "author": "@adelriosantiago",
+  "license": "GNU 3",
+  "bugs": {
+    "url": "https://github.com/adelriosantiago/git-as-dropbox/issues"
+  },
+  "homepage": "https://github.com/adelriosantiago/git-as-dropbox#readme"
+}
