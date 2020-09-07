@@ -6,14 +6,12 @@ GAD (short of **git-as-dropbox**) is not a Dropbox replacement but it is good en
 
 ## Installation
 
-`npm install --global git-as-dropbox`.
+`npm install --global git-as-dropbox`
 
 ## Usage
 
- - Go to the git repository you wish to convert into dropbox-like repository
- - `git-as-dropbox .`
- - Run `git-as-dropbox <repository-path>` on any other computer you wish to sync
- - Any change will now be shared across both computers
+ - Run `git-as-dropbox <repository-path>` on two different computers.
+ - Any change will now be shared across both computers.
 
 ## Pros of using GAD
 
