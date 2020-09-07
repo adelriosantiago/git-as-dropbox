@@ -23,12 +23,10 @@ GAD (short of **git-as-dropbox**) is not a Dropbox replacement but it is good en
 
 ## Cons of using GAD
 
- - Be careful of what you put into your repo. If GAD is running, it will commit any file that touches the folder. Just like Dropbox.
+ - Be careful of what you put into your repo. If GAD is running, it will commit and push any file that lands inside. Just like a Dropbox folder.
  - GAD creates a full copy of your current _.git_ folder. You will see a new _.git-as-dropbox_ folder in your project. This will make your current project twice as big in disk usage. This should not be a problem unless you have an extremely very big repository.
  - GAD uses polling. It is the safest way to make it work across al OS.
  - GAD is not designed to work with several users at the same time over the same file.
-
-You can test this tool with a fake respository with `node ./bin/git-as-dropbox.js example-repo`. Make sure "example-repo" exists.
 
 ## License
 
