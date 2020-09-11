@@ -57,6 +57,7 @@ const run = async (folder, flags) => {
     )
 
     await git.raw([WITH_GAD_GIT, "fetch", "origin", BRANCH_NAME])
+    // TODO: When the next line executes first time, it erases all uncommitted changes this user had. This needs to be fixed by creating a commit first.
     await git.raw([WITH_GAD_GIT, "checkout", BRANCH_NAME])
   } else {
     console.log("Remote repository does not have a git-as-dropbox branch")
