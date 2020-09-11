@@ -2,6 +2,8 @@
 
 Convert any git repository into a cheap Dropbox-like folder. Let's say there are two users, A and B. If both run `git-as-dropbox ./my-repo` when user A adds, deletes or modifies a file, user B will receive these changes and vice versa.
 
+![](./gifs/main.gif)
+
 GAD (short of **git-as-dropbox**) is not a Dropbox replacement but it is good enough to sync two folders across two computers. GAD leaves your original **local** repository completely untouched. This creates a copy of your _.git_ folder called _.git-as-dropbox_. All sync operations happen on this repository. All commits are then done in the new repository and sent **to the same remote repository** as the original one under the _git-as-dropbox_ branch.
 
 ## Installation
