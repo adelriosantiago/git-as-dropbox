@@ -8,7 +8,7 @@ const cli = meow(
       $ git-as-dropbox <repo-path>
  
     Options
-      --timeout, -t Timeout [5000]
+      --timeout, -t Timeout [3000]
       --commitMsg, -m Commit message ["Via git-as-dropbox"]
       --absolutePath, -a Use absolute path [false]
       --silent, -s Silent [false]
@@ -21,7 +21,7 @@ const cli = meow(
     flags: {
       timeout: {
         type: "number",
-        default: 5000,
+        default: 3000,
         alias: "t",
       },
       commitMsg: {

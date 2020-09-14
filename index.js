@@ -16,7 +16,7 @@ const run = async (folder, flags) => {
     path: folder,
     commitMsg: "Via git-as-dropbox",
     absolutePath: false,
-    timeout: 5000,
+    timeout: 3000,
     silent: false,
   }
   Object.assign(settings, flags)
