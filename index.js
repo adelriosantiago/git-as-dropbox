@@ -23,9 +23,7 @@ const run = async (folder, flags) => {
   if (!settings.path) throw "Path parameter is required"
 
   let gitSettings = {
-    baseDir: settings.relativePath
-      ? path.join(process.cwd(), settings.path)
-      : settings.path,
+    baseDir: settings.relativePath ? path.join(process.cwd(), settings.path) : settings.path,
     binary: "git",
     maxConcurrentProcesses: 6,
   }
@@ -38,57 +36,29 @@ const run = async (folder, flags) => {
   }
 
   if (!fs.existsSync(workspaceDirs.gad)) {
-    console.log(
-      "Project is not git-as-dropbox, let's make it by cloning the original repository"
-    )
+    console.log("Project is not git-as-dropbox, let's make it by cloning the original repository")
     fs.copySync(workspaceDirs.git, workspaceDirs.gad)
     hidefile.hideSync(workspaceDirs.gad)
   }
 
-  if (
-    Boolean(
-      (await git.raw([WITH_GAD_GIT, "ls-remote", "--heads"])).match(
-        new RegExp(`refs\\/heads\\/${BRANCH_NAME}`, "gmi")
-      )
-    )
-  ) {
-    console.log(
-      "Fetching remote since it looks like remote repo has a git-as-dropbox branch"
-    )
+  if (Boolean((await git.raw([WITH_GAD_GIT, "ls-remote", "--heads"])).match(new RegExp(`refs\\/heads\\/${BRANCH_NAME}`, "gmi")))) {
+    console.log("Fetching remote since it looks like remote repo has a git-as-dropbox branch")
 
     await git.raw([WITH_GAD_GIT, "fetch", "origin", BRANCH_NAME])
     // TODO: When the next line executes first time, it erases all uncommitted changes this user had. This needs to be fixed by creating a commit first.
     await git.raw([WITH_GAD_GIT, "checkout", BRANCH_NAME])
   } else {
     console.log("Remote repository does not have a git-as-dropbox branch")
-    if (
-      !Boolean(
-        (await git.raw([WITH_GAD_GIT, "branch"])).match(
-          new RegExp(BRANCH_NAME, "gmi")
-        )
-      )
-    ) {
-      console.log(
-        "Local branch git-as-dropbox was created because it didn't exist"
-      )
+    if (!Boolean((await git.raw([WITH_GAD_GIT, "branch"])).match(new RegExp(BRANCH_NAME, "gmi")))) {
+      console.log("Local branch git-as-dropbox was created because it didn't exist")
       await git.raw([WITH_GAD_GIT, "checkout", "-b", BRANCH_NAME])
       await git.raw([WITH_GAD_GIT, "push", "-u", "origin", BRANCH_NAME])
     }
 
     const gitIgnorePath = path.join(".", folder, ".gitignore")
-    if (
-      !(fs.readFileSync(gitIgnorePath, "UTF8").match(/^\.git-as-dropbox$/m) ===
-      null
-        ? false
-        : true)
-    ) {
-      await fs.appendFileSync(
-        gitIgnorePath,
-        `\n# The next line was added automatically by git-as-dropbox\n${GAD_GIT_DIR}`
-      )
-      console.log(
-        `Note: The path ${GAD_GIT_DIR} has been added to your .gitignore file`
-      )
+    if (!(fs.readFileSync(gitIgnorePath, "UTF8").match(/^\.git-as-dropbox$/m) === null ? false : true)) {
+      await fs.appendFileSync(gitIgnorePath, `\n# The next line was added automatically by git-as-dropbox\n${GAD_GIT_DIR}`)
+      console.log(`Note: The path ${GAD_GIT_DIR} has been added to your .gitignore file`)
     }
   }
 
@@ -105,8 +75,7 @@ const run = async (folder, flags) => {
       if (!settings.silent) console.log("Changes found, committing and pushing")
       await git.raw([WITH_GAD_GIT, "add", "."])
       await git.raw([WITH_GAD_GIT, "commit", `-m ${settings.commitMsg}`])
-      if (!settings.silent)
-        console.log(`New commit with message: "${settings.commitMsg}"`)
+      if (!settings.silent) console.log(`New commit with message: "${settings.commitMsg}"`)
       try {
         await git.raw([WITH_GAD_GIT, "push", "-u", "origin", BRANCH_NAME])
         if (!settings.silent) console.log("New change committed and published")
