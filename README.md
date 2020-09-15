@@ -31,11 +31,11 @@ GAD (short of **git-as-dropbox**) is not a Dropbox replacement but it is good en
 
 There are few special cases when several users edit at the same time. These are:
 
- - When user A and user B edit the same line at the same time: I never really liked Dropbox's default behaviour. Dropbox creates _file.txt_ and _file.txt (user's conflicted copy <date>)_. I GAD both user A and B will receive the conflict as shown below.
+ - **When user A and user B edit the same line at the same time:** Dropbox would create two files, _file.txt_ and _file.txt (user's conflicted copy 00/00/0000)_. In GAD, both users will receive the conflict information as shown below.
 ![](./gifs/conflict-line.gif)
 This way any user can fix the conflict.
- - When user A and B rename the same file at the same time: Both users will receive both files.
- - When multiple users edit the same file at the same time: It will very likely create an unintelligible commit diff or it may just crash. GAD is not suitable for this scenario. If you want to allow multiple users editing take a look at my other project, [boy.dog](www.boy.dog), which uses Operational Transforms to sync multiple users in real time.
+ - **When user A and B rename the same file at the same time:** Both users will receive both files.
+ - **When multiple users edit the same file at the same time:** It will very likely create an unintelligible commit diff or it may just crash. GAD is not suitable for this scenario. If you want to allow multiple users editing take a look at my other project, [boy.dog](www.boy.dog), which uses Operational Transforms to sync multiple users in real time.
 
 ## License
 
