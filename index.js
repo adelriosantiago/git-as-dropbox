@@ -56,6 +56,10 @@ const run = async (folder, flags) => {
     }
 
     const gitIgnorePath = path.join(".", folder, ".gitignore")
+    if (!fs.existsSync(gitIgnorePath)) {
+      fs.writeFileSync(gitIgnorePath, GAD_GIT_DIR, { encoding: "UTF8" })
+      console.log(`Note: Repo didn't have a .gitignore file, it has been created`)
+    }
     if (!(fs.readFileSync(gitIgnorePath, "UTF8").match(/^\.git-as-dropbox$/m) === null ? false : true)) {
       await fs.appendFileSync(gitIgnorePath, `\n# The next line was added automatically by git-as-dropbox\n${GAD_GIT_DIR}`)
       console.log(`Note: The path ${GAD_GIT_DIR} has been added to your .gitignore file`)

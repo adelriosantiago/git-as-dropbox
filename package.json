@@ -3,9 +3,6 @@
   "version": "1.0.6",
   "description": "Convert any git repository into a cheap Dropbox-like folder",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
   "bin": {
     "git-as-dropbox": "./bin/git-as-dropbox.js"
   },
