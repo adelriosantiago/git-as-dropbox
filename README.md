@@ -37,6 +37,12 @@ This way any user can fix the conflict.
  - **When user A and B rename the same file at the same time:** Both users will receive both files.
  - **When multiple users edit the same file at the same time:** It will very likely create an unintelligible commit diff or it may just crash. GAD is not suitable for this scenario. If you want to allow multiple users editing take a look at my other project, [boy.dog](www.boy.dog), which uses Operational Transforms to sync multiple users in real time.
 
+
+## Changelog
+
+ - 1.0.7: Fixed bug when _.gitignore_ was not currently present. If it is not found it will be created.
+ - 1.0.6: Decreased polling time. Improved README. Minor fixes.
+
 ## License
 
 GNU v3.0 © [@adelriosantiago](https://twitter.com/adelriosantiago)
