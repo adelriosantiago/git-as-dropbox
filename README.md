@@ -40,6 +40,7 @@ This way any user can fix the conflict.
 
 ## Changelog
 
+ - 1.0.8: Minor improvements.
  - 1.0.7: Fixed bug when _.gitignore_ was not currently present. If it is not found it will be created.
  - 1.0.6: Decreased polling time. Improved README. Minor fixes.
 
@@ -49,13 +50,13 @@ This way any user can fix the conflict.
 No. Your local repository is left untouched.
 
 ##### Does git-as-dropbox change external repositories?
-*Yes*. GAD creates the _git-as-dropbox_ branch in your remote repository. All changes are pushed to this branch and this is how files are sync'ed to other computers.
+Yes. GAD creates the _git-as-dropbox_ branch in your remote repository. All changes are pushed to this branch and this is how files are sync'ed to other computers.
 
 ##### How do completely remove GAD from tracking a repository?
-Stop GAD if currently running. Remove the _.git-as-dropbox_ hidden folder from your proyect. And delete the _git-as-dropbox_ branch from your external repository. GAD does not make changes to your original repository, however if you ever fetched all branches you will also need to delete these too.
+Stop GAD if currently running. Remove the _.git-as-dropbox_ hidden folder from your proyect. And delete the _git-as-dropbox_ branch from your external repository. GAD does not make changes to your original repository, however if you ever fetched all branches in a local repo you might want to delete these too.
 
-##### GAD closes when I disconnect from my external repository. Why?
-Any NodeJS app running on yor CLI will close as you disconnect from the server. This is normal. To do so you can use `nohup` or `pm2` (recommended).
+##### GAD closes when I disconnect from my the server. Why?
+This is normal. Any NodeJS app running on yor CLI will close as you disconnect from the server. To keep GAD running use `nohup` or `pm2` (recommended).
 
 ## License
 
