@@ -1,6 +1,6 @@
 {
   "name": "git-as-dropbox",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Convert any git repository into a cheap Dropbox-like folder",
   "main": "index.js",
   "bin": {
