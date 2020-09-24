@@ -6,6 +6,11 @@ Convert any git repository into a cheap Dropbox-like folder. Let's say there are
 
 GAD (short of **git-as-dropbox**) is not a Dropbox replacement but it is good enough to sync two folders across two computers. GAD leaves your original **local** repository completely untouched. This creates a copy of your _.git_ folder called _.git-as-dropbox_. All sync operations happen on this repository. All commits are then done in the new repository and sent **to the same remote repository** as the original one under the _git-as-dropbox_ branch.
 
+## Prerequisites
+
+ - Node 9 or higher
+ - Git (if you can `git pull` and `git push` from your CLI that good to go)
+
 ## Installation
 
 `npm install --global git-as-dropbox`
