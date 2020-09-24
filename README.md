@@ -47,7 +47,7 @@ This way any user can fix the conflict.
 ## FAQ
 
 ##### Does git-as-dropbox change my local repository?
-No. Your local repository is left untouched.
+No. Your local repository is left untouched. This means that your current local branch (of _.git_) will be "master".
 
 ##### Does git-as-dropbox change external repositories?
 Yes. GAD creates the _git-as-dropbox_ branch in your remote repository. All changes are pushed to this branch and this is how files are sync'ed to other computers.
