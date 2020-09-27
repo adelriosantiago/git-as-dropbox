@@ -1,5 +1,9 @@
 "use strict"
 
+const port = 4466
+const http = require("http")
+const express = require("express")
+const bodyParser = require("body-parser")
 const path = require("path")
 const fs = require("fs-extra")
 const hidefile = require("hidefile")
@@ -9,8 +13,28 @@ const BRANCH_NAME = "git-as-dropbox"
 const GAD_GIT_DIR = ".git-as-dropbox"
 const WITH_GAD_GIT = `--git-dir=${GAD_GIT_DIR}` // With git-as-dropbox (GAD) git repo (for example: git --git-dir=.git-as-dropbox status)
 
-let timer
+const app = express()
+app.use(express.static("static"))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
+app.get("/", (req, res) => {
+  /* Server ./static/index.html by default */
+})
+app.get("/details", (req, res) => {
+  return res.json({ logs: "git logs" }) // TODO: Continue here, get logs in JSON and send them to the front-end
+})
+
+// Init server
+const server = http.createServer(app)
+
+server.listen(port, () => {
+  console.log(
+    `Listening on http://localhost:${port}. IMPORTANT: Double check that this port is not open to the world as it contain sensitive commit information.`
+  )
+})
+
+let timer
 const run = async (folder, flags) => {
   let settings = {
     path: folder,
