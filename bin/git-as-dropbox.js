@@ -11,11 +11,13 @@ const cli = meow(
       --timeout, -t Timeout [3000]
       --commitMsg, -m Commit message ["Via git-as-dropbox"]
       --absolutePath, -a Use absolute path [false]
+      --guiPort, -p (Experimental) Run GUI showing \`git log\` information at defined port. Use 0 to skip. [0]
       --silent, -s Silent [false]
  
     Examples
       $ git-as-dropbox ./my-repository --timeout 2000 --silent
       $ git-as-dropbox C:/path/to/my-repository -t 250 -s -a -m "auto"
+      $ git-as-dropbox ./my-repository --guiPort 8080
   `,
   {
     flags: {
@@ -38,6 +40,11 @@ const cli = meow(
         type: "boolean",
         default: false,
         alias: "s",
+      },
+      guiPort: {
+        type: "number",
+        default: 0,
+        alias: "p",
       },
     },
   }

@@ -8,7 +8,14 @@
     <script src="./cash.min.js"></script>
   </head>
   <body>
-    <div>git-as-dropbox is running</div>
-    <script></script>
+    <h3>.git-as-dropbox git log</h3>
+    <pre id="logs"></pre>
+    <script>
+      $(() => {
+        setInterval(async () => {
+          $("#logs").html(JSON.parse(await (await fetch("/details")).text()))
+        }, 1000)
+      })
+    </script>
   </body>
 </html>
