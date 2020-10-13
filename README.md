@@ -58,7 +58,7 @@ This is normal. Any NodeJS app running on yor CLI will close as you disconnect f
 
 ## Contributing
 
-Submit and issue or clone the repo from https://github.com/adelriosantiago/git-as-dropbox. During development you can test your changes by running `node ./bin/git-as-dropbox.js <path-to-your-repo>`.
+Submit and issue or clone the repo from https://github.com/adelriosantiago/git-as-dropbox. During development you can test your changes by running `node ./bin/git-as-dropbox.js <path-to-your-repo> &`.
 
 ## Changelog
 
