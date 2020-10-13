@@ -107,7 +107,7 @@ const run = async (folder, flags) => {
 
   if (exposeLogs) await _updateLogs()
 
-  console.log(`Started git-as-dropbox on path: ${gitSettings.baseDir}.`)
+  console.log(`Started git-as-dropbox on path: ${gitSettings.baseDir}`)
 
   timer = setTimeout(async function myTimer() {
     try {
