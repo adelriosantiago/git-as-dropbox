@@ -112,8 +112,6 @@ const run = async (folder, flags) => {
   timer = setTimeout(async function myTimer() {
     try {
       await git.raw([WITH_GAD_GIT, "pull"])
-      await git.raw([WITH_GAD_GIT, "push", "-u", "origin", BRANCH_NAME]) // TODO: DRYfy
-
       if (exposeLogs) await _updateLogs()
     } catch (err) {
       // Do nothing: We commit the conflict itself so that any user can fix it.
