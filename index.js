@@ -13,8 +13,8 @@ const WITH_GAD_GIT = `--git-dir=${GAD_GIT_DIR}` // With git-as-dropbox (GAD) git
 
 const tagName = `GAD@${slug(computerName()) || `unknown`}-${Math.floor(Math.random() * 999)}`
 let git
-let logs = "No logs available"
 let timer
+let logs = "No logs available"
 
 const _runLogServer = (port) => {
   const http = require("http")
@@ -105,10 +105,7 @@ const run = async (folder, flags) => {
     }
   }
 
-  if (exposeLogs) {
-    await _updateLogs()
-    console.log(`This computer will appear in the logs as "${tagName}"`)
-  }
+  if (exposeLogs) await _updateLogs()
 
   console.log(`Started git-as-dropbox on path: ${gitSettings.baseDir}.`)
 
@@ -119,7 +116,7 @@ const run = async (folder, flags) => {
 
       if (exposeLogs) await _updateLogs()
     } catch (err) {
-      // We want to ignore pull errors as we will simply commit the conflict so that any user can fix it.
+      // Do nothing: We commit the conflict itself so that any user can fix it.
     }
 
     const status = await git.raw([WITH_GAD_GIT, "status", "-s"])
