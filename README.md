@@ -1,6 +1,6 @@
 # git-as-dropbox (beta)
 
-Convert any git repository into a cheap Dropbox-like folder. Given two users A and B. They can both sync a repository by running `git-as-dropbox ./my-repo`. Now, when user A adds/deletes/modifies a file, user B will receive these changes and vice versa. All using only git and polling intervals so that it works across Windows, Linux and Mac.
+Convert any git repository into a cheap Dropbox-like folder. Given two users A and B. They can both sync a folder by running `git-as-dropbox ./my-repo`. Now, when user A adds/deletes/modifies a file, user B will receive these changes and vice versa. All using only git, without disrupting your original repository and using polling intervals so that it works across Windows, Linux and Mac.
 
 ![](./gifs/main.gif)
 
