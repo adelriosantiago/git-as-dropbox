@@ -27,7 +27,7 @@ const _runLogServer = (port) => {
   app.use(bodyParser.urlencoded({ extended: true }))
 
   app.get("/", (req, res) => {
-    /* Server ./static/index.html by default */
+    // Server ./static/index.html by default
   })
   app.get("/details", (req, res) => {
     return res.json(logs) // TODO: Continue here, get logs in JSON and send them to the front-end
