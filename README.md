@@ -11,12 +11,9 @@ GAD (short of **git-as-dropbox**) is not a Dropbox replacement but it is good en
  - Node 9 or higher
  - Git (if you can `git pull` and `git push` from your CLI you are good to go)
 
-## Installation
-
-`npm install --global git-as-dropbox`
-
 ## Usage
 
+ - Install with `npm install --global git-as-dropbox`.
  - Run `git-as-dropbox <repository-path>` on two different computers. When you first run GAD both repositories better be in sync to avoid initial git conflicts.
  - Any change will now be shared across both computers.
 
