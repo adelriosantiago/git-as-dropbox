@@ -9,7 +9,7 @@ GAD (short of **git-as-dropbox**) is not a Dropbox replacement but it is good en
 ## Prerequisites
 
  - Node 9 or higher
- - Git (if you can `git pull` and `git push` from your CLI that good to go)
+ - Git (if you can `git pull` and `git push` from your CLI you are good to go)
 
 ## Installation
 
