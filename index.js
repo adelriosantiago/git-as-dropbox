@@ -9,6 +9,7 @@ const computerName = require("computer-name")
 const slug = require("slug")
 const BRANCH_NAME = "git-as-dropbox"
 const GAD_GIT_DIR = ".git-as-dropbox"
+const UP_TO_DATE = "Already up to date.\n"
 const WITH_GAD_GIT = `--git-dir=${GAD_GIT_DIR}` // With git-as-dropbox (GAD) git repo (for example: git --git-dir=.git-as-dropbox status)
 
 const tagName = `GAD@${slug(computerName()) || `unknown`}-${Math.floor(Math.random() * 999)}`
@@ -111,7 +112,8 @@ const run = async (folder, flags) => {
 
   timer = setTimeout(async function myTimer() {
     try {
-      await git.raw([WITH_GAD_GIT, "pull"])
+      const pullRes = await git.raw([WITH_GAD_GIT, "pull"])
+      if (pullRes !== UP_TO_DATE) console.log("Received new changes")
       if (exposeLogs) await _updateLogs()
     } catch (err) {
       // Do nothing: We commit the conflict itself so that any user can fix it.
