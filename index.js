@@ -45,7 +45,7 @@ const _runLogServer = (port) => {
 }
 
 const _updateLogs = async () => {
-  logs = await git.raw([WITH_GAD_GIT, "log", "--tags", "--pretty='%d'", "--decorate=full", "--stat"])
+  logs = await git.raw([WITH_GAD_GIT, "log", "--pretty='%d'", "--decorate=full", "--stat"])
 }
 
 const run = async (folder, flags) => {
