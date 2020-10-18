@@ -13,7 +13,8 @@
     <script>
       $(() => {
         setInterval(async () => {
-          $("#logs").html(JSON.parse(await (await fetch("/details")).text()))
+          const logJson = JSON.parse(await (await fetch("/details")).text())
+          $("#logs").html(JSON.stringify(logJson, null, 4))
         }, 1000)
       })
     </script>
