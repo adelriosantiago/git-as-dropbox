@@ -51,14 +51,14 @@ Yes. GAD creates the _git-as-dropbox_ branch in your remote repository. All chan
 Stop GAD if currently running. Remove the _.git-as-dropbox_ hidden folder from your proyect. And delete the _git-as-dropbox_ branch from your external repository. GAD does not make changes to your original repository, however if you ever fetched all branches in a local repo you might want to delete these too.
 
 ##### GAD closes when I disconnect from my the server. Why?
-This is normal. Any NodeJS app running on yor CLI will close as you disconnect from the server. To keep GAD running use `nohup`. For example `nohup git-as-dropbox ./my-repo`.
+This is normal. Any NodeJS app running on yor CLI will close as you disconnect from the server. To keep GAD running use `nohup`. For example `nohup git-as-dropbox ./my-repo &`.
 
 ##### I get an error at "make-dir.js:85" 
 Upgrading your Node version should fix it.
 
 ## Contributing
 
-Submit and issue or clone the repo from https://github.com/adelriosantiago/git-as-dropbox. During development you can test your changes by running `node ./bin/git-as-dropbox.js <path-to-your-repo> &`.
+Submit and issue or clone the repo from https://github.com/adelriosantiago/git-as-dropbox. During development you can test your changes by running `node ./bin/git-as-dropbox.js <path-to-your-repo>`.
 
 ## Changelog
 

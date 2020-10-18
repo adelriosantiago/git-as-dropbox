@@ -39,13 +39,37 @@ const _runLogServer = (port) => {
 
   server.listen(port, () => {
     console.log(
-      `Listening on http://localhost:${port}. IMPORTANT: Double check that this port is not open to the world as it may contain sensitive commit information.`
+      `Listening on http://localhost:${port}. IMPORTANT: If you are running GAD in a server, please double check that this port is not open to the world as it may contain sensitive commit information about your repository.`
     )
   })
 }
 
 const _updateLogs = async () => {
   logs = await git.raw([WITH_GAD_GIT, "log", "--pretty='%d'", "--decorate=full", "--stat"])
+  logs = logs
+    .replace(/^'(.*)'/gm, '{"tags":"$1"}')
+    .replace(/^\n/gm, "")
+    .replace(/^\s(.*\|.*)/gm, '{"change":"$1"}')
+    .replace(/^\s(.*)/gm, '{"summary":"$1"}')
+  logs = logs
+    .split("\n")
+    .filter((l) => l !== "")
+    .map((l) => JSON.parse(l))
+    .reduce((acc, cur) => {
+      const cc = Object.assign({}, cur)
+      const i = acc.length - 1
+
+      if (cc.tags !== undefined) {
+        acc.push(cc)
+      } else if (cc.change !== undefined) {
+        if (!Array.isArray(acc[i].change)) acc[i].change = []
+        acc[i].change.push(cc)
+      } else {
+        acc[i] = { ...acc[i], ...cc }
+      }
+
+      return acc
+    }, [])
 }
 
 const run = async (folder, flags) => {
