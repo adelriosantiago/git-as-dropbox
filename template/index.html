@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="git-as-dropbox" />
     <title>git-as-dropbox</title>
-    <script src="./cash.min.js"></script>
   </head>
   <body>
     <h3>.git-as-dropbox git log</h3>
     <pre id="logs"></pre>
     <script>
-      $(() => {
+      document.addEventListener("DOMContentLoaded", function (event) {
         setInterval(async () => {
           const logJson = JSON.parse(await (await fetch("/details")).text())
-          $("#logs").html(JSON.stringify(logJson, null, 4))
+          document.getElementById("logs").innerHTML = JSON.stringify(logJson, null, 4)
         }, 1000)
       })
     </script>

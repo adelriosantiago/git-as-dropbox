@@ -7,6 +7,7 @@ const splitLines = require("split-lines")
 const simpleGit = require("simple-git")
 const computerName = require("computer-name")
 const slug = require("slug")
+const logView = require("./logView")
 const BRANCH_NAME = "git-as-dropbox"
 const GAD_GIT_DIR = ".git-as-dropbox"
 const UP_TO_DATE = "Already up to date.\n"
@@ -23,12 +24,11 @@ const _runLogServer = (port) => {
   const bodyParser = require("body-parser")
 
   const app = express()
-  app.use(express.static("static"))
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
 
   app.get("/", (req, res) => {
-    // Server ./static/index.html by default
+    return res.send(logView)
   })
   app.get("/details", (req, res) => {
     return res.json(logs) // TODO: Continue here, get logs in JSON and send them to the front-end

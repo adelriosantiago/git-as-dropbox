@@ -40,5 +40,6 @@
   "bugs": {
     "url": "https://github.com/adelriosantiago/git-as-dropbox/issues"
   },
-  "homepage": "https://github.com/adelriosantiago/git-as-dropbox#readme"
+  "homepage": "https://github.com/adelriosantiago/git-as-dropbox#readme",
+  "devDependencies": {}
 }
