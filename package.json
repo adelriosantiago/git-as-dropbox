@@ -6,6 +6,9 @@
   "bin": {
     "git-as-dropbox": "./bin/git-as-dropbox.js"
   },
+  "scripts": {
+    "build": "node buildHtml.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adelriosantiago/git-as-dropbox.git"

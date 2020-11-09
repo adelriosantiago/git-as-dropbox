@@ -1,4 +1,4 @@
-const logView = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -105,38 +105,38 @@ const logView = `<!DOCTYPE html>
           ],
         },
         template: function (props) {
-          return \`
+          return `
             <div>
-              \${props.todos
+              ${props.todos
                 .map((todo, i) => {
-                  return \`
+                  return `
                     <div class="timeline-item">
                       <div class="timeline-left">
                         <a class="timeline-icon icon-lg" href="#timeline-example-2">
-                          <small>\${props.todos.length - i}</small>
+                          <small>${props.todos.length - i}</small>
                         </a>
                       </div>
                       <div class="timeline-content">
-                        <p>\${todo.summary}</p>
+                        <p>${todo.summary}</p>
                         <p>
-                          \${todo.change
+                          ${todo.change
                             .map((entry, i) => {
-                              return \`
+                              return `
                                 <div>
-                                  \${entry.change}
+                                  ${entry.change}
                                 </div>
-                              \`
+                              `
                             })
                             .join("")}
                         </p>
-                        <p>Tags: \${todo.tags}</p>
+                        <p>Tags: ${todo.tags}</p>
                       </div>
                     </div>
-                  \`
+                  `
                 })
                 .join("")}
             </div>
-            \`
+            `
         },
       })
 
@@ -144,4 +144,3 @@ const logView = `<!DOCTYPE html>
     </script>
   </body>
 </html>
-`; module.exports = logView;
