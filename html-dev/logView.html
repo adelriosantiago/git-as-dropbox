@@ -33,76 +33,10 @@
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", async (event) => {
-        //setInterval(async () => {
-        //setTimeout(async () => {
-        const logJson = JSON.parse(await (await fetch("/details")).text())
-        //}, 5000)
-        //}, 1000)
-      })
-
-      // Parent component
+      // App rendering
       var app = new Reef("#app", {
         data: {
-          todos: [
-            {
-              tags: " (HEAD -> refs/heads/git-as-dropbox, refs/remotes/origin/git-as-dropbox, refs/heads/master)",
-              change: [
-                {
-                  change: ".gitignore | 2 ++",
-                },
-              ],
-              summary: "1 file changed, 2 insertions(+)",
-            },
-            {
-              tags: "",
-              change: [
-                {
-                  change: "data.json      | 4 ++--",
-                },
-                {
-                  change: "other file.txt | 3 +++",
-                },
-                {
-                  change: "sample.txt     | 3 +++",
-                },
-              ],
-              summary: "3 files changed, 8 insertions(+), 2 deletions(-)",
-            },
-            {
-              tags: "",
-              change: [
-                {
-                  change: "data.json | 2 +-",
-                },
-              ],
-              summary: "1 file changed, 1 insertion(+), 1 deletion(-)",
-            },
-            {
-              tags: "",
-              change: [
-                {
-                  change: "data.json | 48 ++++++++++++++++++++++++++++++++++++++++++++++++",
-                },
-              ],
-              summary: "1 file changed, 48 insertions(+)",
-            },
-            {
-              tags: "",
-              change: [
-                {
-                  change: ".gitignore | 85 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-                },
-                {
-                  change: "LICENSE    | 21 ++++++++++++++++",
-                },
-                {
-                  change: "README.md  |  1 +",
-                },
-              ],
-              summary: "3 files changed, 107 insertions(+)",
-            },
-          ],
+          todos: [],
         },
         template: function (props) {
           return `
@@ -139,8 +73,13 @@
             `
         },
       })
-
       app.render()
+
+      // Get log data
+      setInterval(async () => {
+        app.data.todos = JSON.parse(await (await fetch("/details")).text())
+        console.log("logJson", logJson)
+      }, 1000)
     </script>
   </body>
 </html>
