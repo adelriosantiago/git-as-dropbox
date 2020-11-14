@@ -76,13 +76,7 @@ const run = async (folder, flags) => {
   const exposeLogs = flags.guiPort !== 0
   if (exposeLogs) _runLogServer(flags.guiPort)
 
-  let settings = {
-    path: folder,
-    commitMsg: "Via git-as-dropbox",
-    absolutePath: false,
-    timeout: 3000,
-    silent: false,
-  }
+  let settings = { path: folder }
   Object.assign(settings, flags)
   if (!settings.path) throw "Path parameter is required"
 

@@ -53,6 +53,9 @@ Stop GAD if currently running. Remove the _.git-as-dropbox_ hidden folder from y
 ##### GAD closes when I disconnect from my the server. Why?
 This is normal. Any NodeJS app running on yor CLI will close as you disconnect from the server. To keep GAD running use `nohup`. For example `nohup git-as-dropbox ./my-repo &`.
 
+##### Why can't I see GAD changes with `git log`?
+Because GAD uses the *.git-as-dropbox* repository which lives next to your *.git* repository. If you want to see GAD's git log run GAD with `guiPort` and go to "localhost:[your guiPort]". Alternatively you can simply use `git --git-dir=.git-as-dropbox log`.
+
 ##### I get an error at "make-dir.js:85" 
 Upgrading your Node version should fix it.
 
@@ -62,6 +65,7 @@ Submit and issue or clone the repo from https://github.com/adelriosantiago/git-a
 
 ## Changelog
 
+ - 1.0.15: Performance fixes. Polling time decreased to 1s. Added git log for viewing GAD's `git log`.
  - 1.0.10: Performance fixes. Roll out experimental GUI to observe changes.
  - 1.0.8: Minor improvements.
  - 1.0.7: Fixed bug when _.gitignore_ was not currently present. If it is not found it will be created.

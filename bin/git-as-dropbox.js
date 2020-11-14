@@ -8,10 +8,10 @@ const cli = meow(
       $ git-as-dropbox <repo-path>
  
     Options
-      --timeout, -t Timeout [3000]
+      --timeout, -t Timeout [1000]
       --commitMsg, -m Commit message ["Via git-as-dropbox"]
       --absolutePath, -a Use absolute path [false]
-      --guiPort, -p (Experimental) Run GUI showing \`git log\` information at defined port. Use 0 to skip. [0]
+      --guiPort, -p (Experimental) Show a GAD \`git log\` timeline at defined port. Use 0 to skip. [0]
       --silent, -s Silent [false]
  
     Examples
@@ -23,7 +23,7 @@ const cli = meow(
     flags: {
       timeout: {
         type: "number",
-        default: 3000,
+        default: 1000,
         alias: "t",
       },
       commitMsg: {
