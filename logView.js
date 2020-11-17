@@ -20,8 +20,7 @@ const logView = `<!DOCTYPE html>
             <p>
               This is the <code>git log</code> of the <code>git-as-dropbox</code> branch from the <em>.git-as-dropbox</em> GIT repository. All changes done
               through GAD appear here. <br /><small
-                >Note: Make sure this port is not visible to the world as it may contain sensitive data of your project. You can always disable this log view by
-                starting GAD with <code>git-as-dropbox [path] -g 0</code></small
+                >IMPORTANT: If you are running GAD in a server, please double check that this port is not open to the world as git log may contain sensitive commit information about your code.</small
               >
             </p>
             <br />
@@ -83,4 +82,5 @@ const logView = `<!DOCTYPE html>
     </script>
   </body>
 </html>
-`; module.exports = logView;
+`
+module.exports = logView

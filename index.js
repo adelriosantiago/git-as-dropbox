@@ -39,7 +39,7 @@ const _runLogServer = (port) => {
 
   server.listen(port, () => {
     console.log(
-      `Listening on http://localhost:${port}. IMPORTANT: If you are running GAD in a server, please double check that this port is not open to the world as it may contain sensitive commit information about your repository.`
+      `Log server visible at http://localhost:${port}. IMPORTANT: If you are running GAD in a server, please double check that this port is not open to the world as git log may contain sensitive commit information about your code.`
     )
   })
 }
