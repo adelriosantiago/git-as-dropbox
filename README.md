@@ -17,6 +17,25 @@ GAD creates a copy of your _.git_ as _.git-as-dropbox_. All sync operations happ
  - Run `git-as-dropbox <repository-path>` on two different computers. When you first run GAD both repositories better be in sync to avoid initial git conflicts.
  - Any change will now be shared across both computers.
 
+ ## CLI help
+
+```
+Usage
+    $ git-as-dropbox <repo-path>
+
+Options
+    --timeout, -t Timeout [1000]
+    --commitMsg, -m Commit message ["Via git-as-dropbox"]
+    --absolutePath, -a Use absolute path [false]
+    --guiPort, -p (Experimental) Show a GAD \`git log\` timeline at defined port. Use 0 to skip. [0]
+    --silent, -s Silent [false]
+
+Examples
+    $ git-as-dropbox ./my-repository --timeout 2000 --silent
+    $ git-as-dropbox C:/path/to/my-repository -t 250 -s -a -m "auto"
+    $ git-as-dropbox ./my-repository --guiPort 8080
+```
+
 ## Features
 
  - GAD respects your current git workflow. You can continue adding, committing and pushing to your original repository as you normally do.
