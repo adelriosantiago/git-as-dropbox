@@ -72,7 +72,7 @@ const _updateLogs = async () => {
     }, [])
 }
 
-const run = async (folder, flags) => {
+const run = async (folder, flags = {}) => {
   const exposeLogs = flags.guiPort !== 0
   if (exposeLogs) _runLogServer(flags.guiPort)
 
