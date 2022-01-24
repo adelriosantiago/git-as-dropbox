@@ -11,6 +11,7 @@ Git-as-dropbox creates a copy of your _.git_ called _.git-as-dropbox_. All sync 
 
  - Node 9 or higher
  - Git (if you can `git pull` and `git push` from your CLI then it can run git-as-dropbox)
+ - `git status` must show no changes before starting
 
 ## Usage
 

@@ -39,7 +39,7 @@ const _runLogServer = (port) => {
 
   server.listen(port, () => {
     console.log(
-      `Log server visible at http://localhost:${port}. IMPORTANT: If you are running GAD in a server, please double check that this port is not open to the world as git log may contain sensitive commit information about your code.`
+      `git-as-dropbox info: Log server visible at http://localhost:${port}. IMPORTANT: If you are running GAD in a server, please double check that this port is not open to the world as git log may contain sensitive commit information about your code.`
     )
   })
 }
@@ -72,7 +72,14 @@ const _updateLogs = async () => {
     }, [])
 }
 
-const run = async (folder, flags = {}) => {
+const run = async (folder, options = {}) => {
+  const flags = Object.assign({
+    timeout: 1000,
+    commitMsg: "Via git-as-dropbox",
+    absolutePath: false,
+    silent: false,
+    guiPort: 0,
+  }, options)
   const exposeLogs = (flags.guiPort && flags.guiPort >= 8000 && flags.guiPort <= 65000) ? true : false
   if (exposeLogs) _runLogServer(flags.guiPort)
 
@@ -88,7 +95,7 @@ const run = async (folder, flags = {}) => {
 
   git = simpleGit(gitSettings)
 
-  if ((await git.status()).files.length) throw "git-as-dropbox error: The repository has uncommitted changes. Please commit or stage these changes before starting git-as-dropbox"
+  if ((await git.status()).files.length) throw "git-as-dropbox error: The repository has uncommitted changes. Please commit or stage these changes before starting git-as-dropbox. If you had run git-as-dropbox in the past in this repository then it is time to commit the changes before running it again"
   if (!(await git.getRemotes()).length) throw "git-as-dropbox error: The repository has no configured remotes, you need to have at least one remote for sync to happen"
 
   const workspaceDirs = {
@@ -99,7 +106,7 @@ const run = async (folder, flags = {}) => {
   const gitIgnorePath = path.join(".", folder, ".gitignore")
   if (!fs.existsSync(gitIgnorePath)) {
     fs.writeFileSync(gitIgnorePath, GAD_GIT_DIR, { encoding: "UTF8" })
-    console.log(`Note: Repo didn't have a .gitignore file, it has been created`)
+    console.log(`git-as-dropbox info: Repo had no .gitignore file, one has been created`)
   }
   if (!(fs.readFileSync(gitIgnorePath, "UTF8").match(new RegExp(`^\\${GAD_GIT_DIR}$`, "m")) === null ? false : true)) {
     try {
@@ -107,24 +114,24 @@ const run = async (folder, flags = {}) => {
     } catch (err) {
       throw "git-as-dropbox error: Unable to change your .gitignore file. Please check file permissions"
     }
-    console.log(`Note: The path ${GAD_GIT_DIR} has been added to your .gitignore file`)
+    console.log(`git-as-dropbox info: The path ${GAD_GIT_DIR} has been added to your .gitignore file`)
   }
 
   if (!fs.existsSync(workspaceDirs.gad)) {
-    console.log("Project is not git-as-dropbox, let's make it by cloning the original repository")
+    console.log("git-as-dropbox info: Project is not git-as-dropbox, let's make it by cloning the original repository")
     fs.copySync(workspaceDirs.git, workspaceDirs.gad)
     hidefile.hideSync(workspaceDirs.gad)
   }
 
   if (Boolean((await git.raw([WITH_GAD_GIT, "ls-remote", "--heads"])).match(new RegExp(`refs\\/heads\\/${BRANCH_NAME}`, "gmi")))) {
-    console.log("Fetching remote since it looks like remote repo has a git-as-dropbox branch")
+    console.log("git-as-dropbox info: Fetching remote since it looks like remote repo has a git-as-dropbox branch")
 
     await git.raw([WITH_GAD_GIT, "fetch", "origin", BRANCH_NAME])
     await git.raw([WITH_GAD_GIT, "checkout", BRANCH_NAME])
   } else {
-    console.log("Remote repository does not have a git-as-dropbox branch")
+    console.log("git-as-dropbox info: Remote repository does not have a git-as-dropbox branch")
     if (!Boolean((await git.raw([WITH_GAD_GIT, "branch"])).match(new RegExp(BRANCH_NAME, "gmi")))) {
-      console.log("Local branch git-as-dropbox was created because it didn't exist")
+      console.log("git-as-dropbox info: Local branch git-as-dropbox was created because it didn't exist")
       await git.raw([WITH_GAD_GIT, "checkout", "-b", BRANCH_NAME])
       await git.raw([WITH_GAD_GIT, "push", "-u", "origin", BRANCH_NAME])
     }
@@ -132,12 +139,12 @@ const run = async (folder, flags = {}) => {
 
   if (exposeLogs) await _updateLogs()
 
-  console.log(`Started git-as-dropbox on path: ${gitSettings.baseDir}`)
+  console.log(`git-as-dropbox info: Started git-as-dropbox on path: ${gitSettings.baseDir}`)
 
   timer = setTimeout(async function myTimer() {
     try {
       const pullRes = await git.raw([WITH_GAD_GIT, "pull"])
-      if (pullRes !== UP_TO_DATE) console.log("Received new changes")
+      if (pullRes !== UP_TO_DATE) console.log("git-as-dropbox log: Received new changes")
       if (exposeLogs) await _updateLogs()
     } catch (err) {
       // Do nothing: We commit the conflict itself so that any user can fix it.
@@ -145,16 +152,16 @@ const run = async (folder, flags = {}) => {
 
     const status = await git.raw([WITH_GAD_GIT, "status", "-s"])
     if (status.trim() !== "") {
-      if (!settings.silent) console.log("Changes found, committing and pushing")
+      if (!settings.silent) console.log("git-as-dropbox log: Changes found, committing and pushing")
       await git.raw([WITH_GAD_GIT, "add", "."])
       await git.raw([WITH_GAD_GIT, "commit", `-m ${settings.commitMsg}`])
-      if (!settings.silent) console.log(`New commit with message: "${settings.commitMsg}"`)
+      if (!settings.silent) console.log(`git-as-dropbox log: New commit with message: "${settings.commitMsg}"`)
       try {
         await git.raw([WITH_GAD_GIT, "push", "-u", "origin", BRANCH_NAME])
-        if (!settings.silent) console.log("New change committed and published")
+        if (!settings.silent) console.log("git-as-dropbox log: New change committed and published")
       } catch (err) {
         console.log(
-          "Unable to push changes to external repository. Make sure you are able to `git push` from a your computer's command line. Or just try again. Failed with error:",
+          "git-as-dropbox error: Unable to push changes to external repository. Make sure you are able to `git push` from a your computer's command line. Or just try again. Git-as-dropbox will keep running. Failed with error:",
           err
         )
       }
