@@ -78,7 +78,7 @@ const run = async (folder, flags = {}) => {
 
   let settings = { path: folder }
   Object.assign(settings, flags)
-  if (!settings.path) throw "Path parameter is required"
+  if (!settings.path) throw "git-as-dropbox error: Path parameter is required"
 
   let gitSettings = {
     baseDir: settings.relativePath ? path.join(process.cwd(), settings.path) : settings.path,
@@ -87,6 +87,8 @@ const run = async (folder, flags = {}) => {
   }
 
   git = simpleGit(gitSettings)
+
+  if (!(await git.getRemotes()).length) throw "git-as-dropbox error: The repository has no configured remotes, you need to have at least one remote for sync to happen"
 
   const workspaceDirs = {
     git: path.join(".", folder, ".git"),
