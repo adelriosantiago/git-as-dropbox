@@ -95,6 +95,20 @@ const run = async (folder, flags = {}) => {
     gad: path.join(".", folder, GAD_GIT_DIR),
   }
 
+  const gitIgnorePath = path.join(".", folder, ".gitignore")
+  if (!fs.existsSync(gitIgnorePath)) {
+    fs.writeFileSync(gitIgnorePath, GAD_GIT_DIR, { encoding: "UTF8" })
+    console.log(`Note: Repo didn't have a .gitignore file, it has been created`)
+  }
+  if (!(fs.readFileSync(gitIgnorePath, "UTF8").match(new RegExp(`^\\${GAD_GIT_DIR}$`, "m")) === null ? false : true)) {
+    try {
+      await fs.appendFileSync(gitIgnorePath, `\n# The next line was added automatically by git-as-dropbox\n${GAD_GIT_DIR}`)
+    } catch (err) {
+      throw "git-as-dropbox error: Unable to change your .gitignore file. Please check file permissions"
+    }
+    console.log(`Note: The path ${GAD_GIT_DIR} has been added to your .gitignore file`)
+  }
+
   if (!fs.existsSync(workspaceDirs.gad)) {
     console.log("Project is not git-as-dropbox, let's make it by cloning the original repository")
     fs.copySync(workspaceDirs.git, workspaceDirs.gad)
@@ -105,7 +119,7 @@ const run = async (folder, flags = {}) => {
     console.log("Fetching remote since it looks like remote repo has a git-as-dropbox branch")
 
     await git.raw([WITH_GAD_GIT, "fetch", "origin", BRANCH_NAME])
-    // TODO: When the next line executes first time, it erases all uncommitted changes this user had. This needs to be fixed by creating a commit first.
+    // TODO: When the next line executes first time, it erases all uncommitted changes this user had in the git-as-dropbox repository. This needs to be fixed by creating a commit first.
     await git.raw([WITH_GAD_GIT, "checkout", BRANCH_NAME])
   } else {
     console.log("Remote repository does not have a git-as-dropbox branch")
@@ -113,16 +127,6 @@ const run = async (folder, flags = {}) => {
       console.log("Local branch git-as-dropbox was created because it didn't exist")
       await git.raw([WITH_GAD_GIT, "checkout", "-b", BRANCH_NAME])
       await git.raw([WITH_GAD_GIT, "push", "-u", "origin", BRANCH_NAME])
-    }
-
-    const gitIgnorePath = path.join(".", folder, ".gitignore")
-    if (!fs.existsSync(gitIgnorePath)) {
-      fs.writeFileSync(gitIgnorePath, GAD_GIT_DIR, { encoding: "UTF8" })
-      console.log(`Note: Repo didn't have a .gitignore file, it has been created`)
-    }
-    if (!(fs.readFileSync(gitIgnorePath, "UTF8").match(new RegExp(`^\\${GAD_GIT_DIR}$`, "m")) === null ? false : true)) {
-      await fs.appendFileSync(gitIgnorePath, `\n# The next line was added automatically by git-as-dropbox\n${GAD_GIT_DIR}`)
-      console.log(`Note: The path ${GAD_GIT_DIR} has been added to your .gitignore file`)
     }
   }
 
