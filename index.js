@@ -73,7 +73,8 @@ const _updateLogs = async () => {
 }
 
 const run = async (folder, flags = {}) => {
-  if (flags.guiPort && flags.guiPort >= 8000 && flags.guiPort <= 65000) _runLogServer(flags.guiPort)
+  const exposeLogs = (flags.guiPort && flags.guiPort >= 8000 && flags.guiPort <= 65000) ? true : false
+  if (exposeLogs) _runLogServer(flags.guiPort)
 
   let settings = { path: folder }
   Object.assign(settings, flags)
