@@ -87,6 +87,7 @@ const run = async (folder, flags = {}) => {
 
   git = simpleGit(gitSettings)
 
+  if ((await git.status()).files.length) throw "git-as-dropbox error: The repository has uncommitted changes. Please commit or stage these changes before starting git-as-dropbox"
   if (!(await git.getRemotes()).length) throw "git-as-dropbox error: The repository has no configured remotes, you need to have at least one remote for sync to happen"
 
   const workspaceDirs = {
@@ -118,7 +119,6 @@ const run = async (folder, flags = {}) => {
     console.log("Fetching remote since it looks like remote repo has a git-as-dropbox branch")
 
     await git.raw([WITH_GAD_GIT, "fetch", "origin", BRANCH_NAME])
-    // TODO: When the next line executes first time, it erases all uncommitted changes this user had in the git-as-dropbox repository. This needs to be fixed by creating a commit first.
     await git.raw([WITH_GAD_GIT, "checkout", BRANCH_NAME])
   } else {
     console.log("Remote repository does not have a git-as-dropbox branch")
