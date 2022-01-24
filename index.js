@@ -31,7 +31,7 @@ const _runLogServer = (port) => {
     return res.send(logView)
   })
   app.get("/details", (req, res) => {
-    return res.json(logs) // TODO: Continue here, get logs in JSON and send them to the front-end
+    return res.json(logs)
   })
 
   // Init server
@@ -73,8 +73,7 @@ const _updateLogs = async () => {
 }
 
 const run = async (folder, flags = {}) => {
-  const exposeLogs = flags.guiPort !== 0
-  if (exposeLogs) _runLogServer(flags.guiPort)
+  if (flags.guiPort && flags.guiPort >= 8000 && flags.guiPort <= 65000) _runLogServer(flags.guiPort)
 
   let settings = { path: folder }
   Object.assign(settings, flags)

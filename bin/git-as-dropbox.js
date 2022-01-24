@@ -11,7 +11,7 @@ const cli = meow(
       --timeout, -t Timeout [1000]
       --commitMsg, -m Commit message ["Via git-as-dropbox"]
       --absolutePath, -a Use absolute path [false]
-      --guiPort, -p (Experimental) Show a GAD \`git log\` timeline at defined port. Use 0 to skip. [0]
+      --guiPort, -p (Experimental) Show a GAD \`git log\` timeline at defined port. Must be between 8000 and 65000 [0]
       --silent, -s Silent [false]
  
     Examples
